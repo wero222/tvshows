@@ -1,0 +1,36 @@
+.center-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px;
+}
+
+.serie-card {
+  flex-basis: calc(50% - 50px);
+  margin: 5px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 10px 15px 30px rgba(0, 0, 0, 0.445);
+}
+
+.serieimg {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.serie-card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 20px 30px 40px rgba(0, 0, 0, 0.445);
+}

@@ -1,0 +1,43 @@
+<div>
+    <form #formSerie="ngForm" (ngSubmit)="manda()">
+        <mat-form-field appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput disabled value="{{serie.name}}">
+        </mat-form-field>
+        <img mat-card-image class="seriedetimg" [src]="serie.image_path">
+        <mat-form-field appearance="fill">
+            <mat-label>Seasons</mat-label>
+            <input matInput disabled value="">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Total episodes</mat-label>
+            <input matInput disabled value="">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select #name="ngModel" required [(ngModel)]="model.status" name="status">
+                <mat-option value="finished">Finished</mat-option>
+                <mat-option value="ongoing">Ongoing</mat-option>
+                <mat-option value="dropped">Dropped</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="model.status === 'finished'">
+            <app-rating [rating]="rating" (nuovoRating)="onRatingCambiato($event)"></app-rating>
+            <mat-form-field>
+                <mat-label>Review</mat-label>
+                <textarea matInput cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="model.status === 'ongoing'">
+            <mat-label>Season</mat-label>
+            <mat-select #name="ngModel" [(ngModel)]="model.season" name="season">
+                <mat-option *ngFor="" value="1">1</mat-option>
+            </mat-select>
+            <mat-label>Episode</mat-label>
+            <mat-select #name="ngModel" [(ngModel)]="model.episode" name="episode">
+                <mat-option *ngFor="" value="1">1</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+</div>

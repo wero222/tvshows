@@ -1,0 +1,11 @@
+<div class="container">
+    <button mat-icon-button color="accent" *ngFor="let ratingId of ratingArray;
+     index as i" [id]="'star_'+i" (click)="calcolaRating(i+1)">
+        <mat-icon>
+            {{ statoIcona(i) }}
+        </mat-icon>
+    </button>
+    <p>
+        Your rated <span>{{ rating }}</span>/<span>{{ massimoRating }}</span>
+    </p>
+</div>

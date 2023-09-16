@@ -1,0 +1,10 @@
+<h2>Your TV shows:</h2>
+<mat-grid-list cols="3" class="center-grid">
+    <mat-grid-tile *ngFor="let s of series" class="mat-grid-tile">
+        <mat-card class="serie-card" (click)="toSerieSalvata(s.id)">
+            <img mat-card-image class="serieimg" src="{{s.image_thumbnail_path}}">
+            <mat-divider></mat-divider>
+
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

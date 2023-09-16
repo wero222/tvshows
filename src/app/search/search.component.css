@@ -1,0 +1,13 @@
+.custom-mat-form-field {
+    height: 70px;
+    border-radius: 16px;
+  }
+  
+  .custom-mat-form-field .mat-input-element {
+    padding: 8px 12px;
+  }
+  
+  .custom-button {
+    margin-left: 10px;
+  }
+  

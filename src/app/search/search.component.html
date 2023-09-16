@@ -1,0 +1,4 @@
+<mat-form-field class="custom-mat-form-field">
+    <input matInput placeholder="Search TV Shows" [(ngModel)]="searchQuery" (input)="onSearch()">
+</mat-form-field>
+<button mat-raised-button color="primary" class="custom-button" (click)="onSearch()">Search</button>

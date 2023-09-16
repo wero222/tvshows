@@ -1,0 +1,21 @@
+<div class="container">
+    <mat-card *ngIf="serie" class="center-card">
+        <mat-card-title class="title">{{serie.serie.name}}</mat-card-title>
+        <img mat-card-image class="seriedetimg" [src]="serie.serie.image_path">
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-footer>
+                <mat-card-subtitle>Status: {{serie.serie.status}}</mat-card-subtitle>
+                <app-rating></app-rating>
+                <mat-card-subtitle>{{serie.review}}</mat-card-subtitle>
+                <mat-card-subtitle>Current season: {{serie.season}}</mat-card-subtitle>
+                <mat-card-subtitle>Current episode: {{serie.episode}}</mat-card-subtitle>
+
+            </mat-card-footer>
+            <mat-card-content>
+                <button mat-button (click)="modifica(serie.serie.id)">Edit</button>
+            </mat-card-content>
+        </mat-card-content>
+    </mat-card>
+</div>

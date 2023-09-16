@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    <div class="menu">
+        <button mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/home" class="home">
+            <mat-icon>home</mat-icon>
+        </button>
+        <app-search></app-search>
+        <button mat-icon-button routerLink="/series/salvate" class="fav">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/register">
+            <mat-icon>lock_open</mat-icon>
+        </button>
+        <button *ngif="!logged" mat-icon-button routerLink="/login">
+            <mat-icon>login</mat-icon>
+        </button>
+        <button *ngIf="logged" mat-icon-button routerLink="/logout/{{token}}">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>

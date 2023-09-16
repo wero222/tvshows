@@ -1,0 +1,25 @@
+<div class="form-container">
+    <form #formLog="ngForm" (ngSubmit)="login()">
+        <mat-form-field appearance="fill">
+            <mat-label>E-mail</mat-label>
+            <input #email="ngModel" required [(ngModel)]="model.email" type="email" matInput name="email"
+                placeholder="E-mail..."
+                pattern="^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$">
+            <mat-error *ngIf="email.hasError('required')">
+                E-mail required
+            </mat-error>
+            <mat-error *ngIf="email.invalid && !email.pristine">
+                E-mail not valid
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input #password="ngModel" required [(ngModel)]="model.password" type="password" matInput name="password"
+                placeholder="Password...">
+            <mat-error *ngIf="password.hasError('required')">
+                Password required
+            </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formLog.form.valid">Login</button>
+    </form>
+</div>

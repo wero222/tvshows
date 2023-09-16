@@ -1,0 +1,55 @@
+<div class="container">
+    <mat-card *ngIf="serie" class="center-card">
+        <mat-card-title class="title">{{serie.name}}</mat-card-title>
+        <img mat-card-image class="seriedetimg" [src]="serie.image_path">
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <mat-card-subtitle>
+                <div [innerHTML]="sanitizeDescription(serie.description)"></div>
+            </mat-card-subtitle>
+            <mat-divider></mat-divider>
+            <mat-card-footer>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <td>
+                                <span>Start date: {{serie.start_date}}</span>
+                            </td>
+                            <td>
+                                Rating: {{serie.rating | number : '1.1-1'}}/10
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Country: {{serie.country}}</span>
+                            </td>
+                            <td>
+                                Network: {{serie.network}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Genres: <a *ngFor="let g of serie.genres; last as isLast">{{g}}<span
+                                            *ngIf="!isLast">,
+                                        </span></a></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Seasons: {{highestSeason}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Total episodes: {{totalEpisodes}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </mat-card-footer>
+            <div class="button-container">
+                <button *ngIf="logged" mat-button (click)="salva()"><mat-icon>favorite</mat-icon></button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
