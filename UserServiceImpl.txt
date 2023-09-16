@@ -1,0 +1,126 @@
+package progetto.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import progetto.dao.SerieDao;
+import progetto.dao.UserDao;
+import progetto.helper.ResponseManager;
+import progetto.helper.SecurityManager;
+import progetto.model.SerieSalvata;
+import progetto.model.User;
+
+@Service
+public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+	private SerieDao serieDao;
+
+	@Override
+	public ObjectNode userRegistration(User user) {
+		if(userDao.findByEmail(user.getEmail()) != null) {
+			return new ResponseManager(409, "Existing mail").getResponse();
+		}
+		user.setPassword(progetto.helper.SecurityManager.encode(user.getPassword()));
+		userDao.save(user);
+		return new ResponseManager(201, "User registrated").getResponse();
+	}
+
+	@Override
+	public User getUserByToken(String token) {
+		User user = userDao.findByAuthToken(token);
+		if(user == null) {
+			return new User();
+		}
+		user.setPassword(progetto.helper.SecurityManager.decode(user.getPassword()));
+		return user;
+	}
+
+	@Override
+	public ObjectNode updateUserData(User user, String token) {
+		User existing = userDao.findByAuthToken(token);
+		if(existing == null) {
+			return new ResponseManager(404, "Not Authorized").getResponse();
+		}
+		existing.setName(user.getName());
+		existing.setSurname(user.getSurname());
+		existing.setPassword(progetto.helper.SecurityManager.encode(user.getPassword()));
+		userDao.save(existing);
+		return new ResponseManager(200, "User data updated").getResponse();
+	}
+
+	@Override
+	public ObjectNode deleteUser(String token) {
+		User existing = userDao.findByAuthToken(token);
+		if(existing == null) {
+			return new ResponseManager(404, "Not Authorized").getResponse();
+		}
+		userDao.delete(existing);
+		return new ResponseManager(200, "User deleted").getResponse();
+	}
+
+	@Override
+	public List<User> getUsers() {
+		return (List<User>) userDao.findAll();
+	}
+
+	@Override
+	public ObjectNode userLoginCheck(User user) {
+		User existing = userDao.findByMailAndPassword(user.getEmail(), SecurityManager.encode(user.getPassword()));
+		if(existing == null) {
+			return new ResponseManager(401, "Not Authorized").getResponse();
+		}
+		existing.setAuthToken(SecurityManager.generateToken(existing.getEmail()));
+		userDao.save(existing);
+		return new ResponseManager(202, existing.getAuthToken()).getResponse();
+	}
+
+	@Override
+	public ObjectNode userLogout(String token) {
+		User user = userDao.findByAuthToken(token);
+		if(user == null) {
+			return new ResponseManager(401, "Not Authorized").getResponse();
+		}
+		user.setAuthToken(null);
+		userDao.save(user);
+		return new ResponseManager(202, "Logout Done").getResponse();
+	}
+
+	@Override
+	public ObjectNode saveFavorite(SerieSalvata serie) {
+		serieDao.save(serie);
+		return new ResponseManager(201, "Data saved").getResponse();
+	}
+
+	@Override
+	public ObjectNode updateSerieData(SerieSalvata serie, String id) {
+		SerieSalvata existingSerie = serieDao.findById(id);
+		if(existingSerie == null) {
+			return new ResponseManager(404, "Data not found").getResponse();
+		}
+		existingSerie.setUserId(serie.getUserId());
+		existingSerie.setSerie(serie.getSerie());
+		existingSerie.setStatus(serie.getStatus());
+		existingSerie.setRating(serie.getRating());
+		existingSerie.setReview(serie.getReview());
+		existingSerie.setSeason(serie.getSeason());
+		existingSerie.setEpisode(serie.getEpisode());
+		serieDao.save(existingSerie);
+		return new ResponseManager(202, "Data updated").getResponse();
+	}
+	
+	@Override
+	public SerieSalvata getSerieByUserId(int userid) {
+		SerieSalvata serie = serieDao.findByUser_id(userid);
+		return serie;
+	}
+
+}

@@ -1,0 +1,18 @@
+package progetto.dao;
+
+import org.springframework.data.repository.CrudRepository;
+
+import progetto.model.SerieSalvata;
+
+
+public interface SerieDao extends CrudRepository<SerieSalvata, Integer> {
+	
+	SerieSalvata findById(String id);
+	SerieSalvata findByUser_id(int userid);
+	static SerieSalvata findByUser_idAndId(int userid, int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+}

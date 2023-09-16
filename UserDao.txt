@@ -1,0 +1,13 @@
+package progetto.dao;
+
+import org.springframework.data.repository.CrudRepository;
+
+import progetto.model.User;
+
+public interface UserDao extends CrudRepository<User, Integer> {
+	
+	User findByEmail(String email);
+	User findByMailAndPassword(String mail, String password);
+	User findByAuthToken(String authToken);
+
+}

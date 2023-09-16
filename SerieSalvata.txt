@@ -1,0 +1,106 @@
+package progetto.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "serie_salvate")
+public class SerieSalvata {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long userId;
+
+    @OneToOne
+    @JoinColumn(name = "serie_id")
+    private Serie serie;
+    
+    private String status;
+    
+    private Double rating;
+    
+    private String review;
+    
+    private Integer season;
+    
+    private Integer episode;
+    
+    public SerieSalvata() {
+    	this.status = "Status";
+    	this.rating = 0.0;
+    	this.review = "";
+    	this.season = 0;
+    	this.episode = 0;}
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Serie getSerie() {
+        return serie;
+    }
+
+    public void setSerie(Serie serie) {
+        this.serie = serie;
+    }
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Double getRating() {
+		return rating;
+	}
+
+	public void setRating(Double rating) {
+		this.rating = rating;
+	}
+
+	public String getReview() {
+		return review;
+	}
+
+	public void setReview(String review) {
+		this.review = review;
+	}
+
+	public Integer getSeason() {
+		return season;
+	}
+
+	public void setSeason(Integer season) {
+		this.season = season;
+	}
+
+	public Integer getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(Integer episode) {
+		this.episode = episode;
+	}
+
+}
